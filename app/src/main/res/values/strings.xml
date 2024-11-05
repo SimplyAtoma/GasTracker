@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">GasTracker</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="log_in_Button">Log In</string>
+    <string name="permission_rationale_location">This permission allows for the app to access local information. </string>
+    <string name="location_permission_denied">This permission was denied.</string>
+    <string name="permission_required_toast">This Permission is Required</string>
 </resources>
