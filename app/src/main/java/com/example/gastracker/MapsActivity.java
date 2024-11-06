@@ -34,6 +34,7 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         setContentView(R.layout.activity_maps);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 
