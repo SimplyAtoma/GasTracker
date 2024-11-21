@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void loginUser() {
         loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, -1);
     }
-
+//make more commits david
     static Intent mainActivityIntentFactory(Context context, int userId){
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
