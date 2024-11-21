@@ -26,25 +26,84 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/rounded_corner"
-        android:padding="18dp"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="35dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/favoritesTextView"
+        android:id="@+id/yourFavoritesTextView"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:textSize="35sp"
-        app:layout_constraintStart_toStartOf="@id/gasGaintLogo"
-        app:layout_constraintBottom_toBottomOf="@id/gasGaintLogo"
-        android:textColor="@color/black"
-        android:text="Your favorites!"
-        android:fontFamily="cursive"
+        android:layout_marginStart="6dp"
+        android:text="@string/your_favorites"
         android:textAlignment="center"
-        />
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/gasGaintLogo"
+        app:layout_constraintLeft_toLeftOf="@id/favoritesSlidingTextViewHeader"
+        app:layout_constraintTop_toBottomOf="@id/landingPageUsernameTextView" />
+
+    <TextView
+        android:id="@+id/favoritesSlidingTextViewHeader"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_corner"
+        android:text="@string/gas_station_address_price"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yourFavoritesTextView" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/back"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/mapButton"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/map"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/log_out"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/favoritesSlidingTextView"
+        android:layout_width="400dp"
+        android:layout_height="375dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/favoritesSlidingTextViewHeader" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
