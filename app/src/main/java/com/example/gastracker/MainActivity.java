@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loginUser(Bundle savedInstanceStats) {
-//check shared perfectness for logged in user
+//check shared Preferences for logged in user
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USER_ID_KEY,
                 Context.MODE_PRIVATE);
         if(sharedPreferences.contains(SHARED_PREFERENCE_USER_ID_VALUE)){
