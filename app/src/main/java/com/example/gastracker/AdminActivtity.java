@@ -22,6 +22,12 @@ public class AdminActivtity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
     }
 
     static Intent AdminActivityIntentFactory(Context context, int userId) {
@@ -29,6 +35,17 @@ public class AdminActivtity extends AppCompatActivity {
          intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
          return intent;
 
+    }
+    private void logout() {
+        /*
+        SharedPreferences sharedPreferences =  getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USER_ID_KEY,Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+        sharedPrefEditor.putInt(SHARED_PREFERENCE_USER_ID_KEY,LOGGED_OUT);
+        sharedPrefEditor.apply();
+        getIntent().putExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
+
+         */
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 
 }

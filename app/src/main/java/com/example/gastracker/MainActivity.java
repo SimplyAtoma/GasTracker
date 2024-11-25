@@ -81,11 +81,14 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefEditor.apply();
     }
     private void logout() {
+        /*
         SharedPreferences sharedPreferences =  getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USER_ID_KEY,Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
         sharedPrefEditor.putInt(SHARED_PREFERENCE_USER_ID_KEY,LOGGED_OUT);
         sharedPrefEditor.apply();
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
+
+         */
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 //make more commits david
