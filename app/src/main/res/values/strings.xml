@@ -13,4 +13,5 @@
     <string name="back">Back</string>
     <string name="map">Map</string>
     <string name="log_out">Log out</string>
+    <string name="data">Data</string>
 </resources>

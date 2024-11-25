@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/gasGaintLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/logo_gas_tracker"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/landingPageUsernameTextView"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/rounded_corner"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/yourFavoritesTextView"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="6dp"
+        android:text="@string/your_favorites"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/gasGaintLogo"
+        app:layout_constraintLeft_toLeftOf="@id/favoritesSlidingTextViewHeader"
+        app:layout_constraintTop_toBottomOf="@id/landingPageUsernameTextView" />
+
+    <TextView
+        android:id="@+id/favoritesSlidingTextViewHeader"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_corner"
+        android:text="@string/gas_station_address_price"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yourFavoritesTextView" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/back"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/mapButton"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/map"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/log_out"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/favoritesSlidingTextView"
+        android:layout_width="400dp"
+        android:layout_height="375dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/favoritesSlidingTextViewHeader" />
+
+    <Button
+        android:id="@+id/adminData"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#F45E06"
+        android:text="@string/data"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/favoritesSlidingTextViewHeader"
+        app:layout_constraintRight_toRightOf="@id/landingPageUsernameTextView"
+        app:layout_constraintTop_toBottomOf="@id/landingPageUsernameTextView"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
