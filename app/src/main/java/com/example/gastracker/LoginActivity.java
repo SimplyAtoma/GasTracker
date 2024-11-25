@@ -33,6 +33,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        binding.SignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navigateToSignUp();
+            }
+        });
+
     }
 
     private void verifyUser(){
@@ -66,5 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         return new Intent(context, LoginActivity.class);
 
     }
-
+    private void navigateToSignUp() {
+        // Navigate to SignUpActivity
+        Intent intent = SignUpActivity.signUpIntentFactory(getApplicationContext());
+        startActivity(intent);
+    }
 }

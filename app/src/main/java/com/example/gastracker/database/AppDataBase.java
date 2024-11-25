@@ -2,6 +2,7 @@ package com.example.gastracker.database;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -18,7 +19,6 @@ public abstract class AppDataBase extends RoomDatabase {
     private  static volatile AppDataBase INSTANCE;
     private static final String DATABASE_NAME = "App_database";
     private  static final int NUMBER_OF_THREADS = 4;
-
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     static AppDataBase getDatabase(final Context context) {
@@ -57,4 +57,7 @@ public abstract class AppDataBase extends RoomDatabase {
         }
     };
     public abstract UserDAO userDao();
+
+
+
 }
