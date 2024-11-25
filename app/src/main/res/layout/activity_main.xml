@@ -102,6 +102,7 @@
         android:layout_marginVertical="10dp"
         android:background="@drawable/rounded_corner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/favoritesSlidingTextViewHeader" />
 

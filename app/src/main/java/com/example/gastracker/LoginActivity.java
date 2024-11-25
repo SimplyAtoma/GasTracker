@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 verifyUser();
+
             }
         });
 
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
                 navigateToSignUp();
             }
         });
+
+
 
     }
 
@@ -54,7 +57,12 @@ public class LoginActivity extends AppCompatActivity {
             if(user!=null){
                 String password = binding.passwordInput.getText().toString();
                 if(password.equals(user.getPassword())){
-                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),user.getId()));
+                    if(!user.isAdmin()) {
+                        startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
+                    }
+                    Intent intent = AdminActivtity.AdminActivityIntentFactory(getApplicationContext(), user.getId());
+                    startActivity(intent);
+
                 }else{
                     ToastMaker("Invalid password");
                     binding.passwordInput.setSelection(0);
@@ -64,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 binding.usernameInput.setSelection(0);
             }
         });
-
     }
     private void ToastMaker(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -78,4 +85,5 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = SignUpActivity.signUpIntentFactory(getApplicationContext());
         startActivity(intent);
     }
+
 }

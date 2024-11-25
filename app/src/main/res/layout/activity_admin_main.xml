@@ -10,7 +10,7 @@
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    tools:context=".MainActivity">
+    tools:context=".AdminActivtity">
 
     <ImageView
         android:id="@+id/gasGaintLogo"
