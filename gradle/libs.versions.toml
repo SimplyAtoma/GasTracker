@@ -1,6 +1,5 @@
 [versions]
 agp = "8.5.2"
-fragment = "1.5.4"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -8,11 +7,9 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.1.4"
-googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
-playServicesMaps = "18.1.0"
+playServicesMaps = "19.0.0"
 
 [libraries]
-fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -24,5 +21,4 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 

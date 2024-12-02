@@ -19,7 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
-
+//Todo remove the /*
+/*
 public class MapsActivity extends AppCompatActivity implements OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
         OnMapReadyCallback,
@@ -113,8 +114,10 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
      */
+/*Todo remove the /*
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 }
+*/

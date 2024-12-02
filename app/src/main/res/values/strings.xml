@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">GasTracker</string>
-    <string name="title_activity_maps">MapsActivity</string>
-    <string name="log_in_Button">Log In</string>
-    <string name="permission_rationale_location">This permission allows for the app to access local information. </string>
-    <string name="location_permission_denied">This permission was denied.</string>
-    <string name="permission_required_toast">This Permission is Required</string>
+    <string name="textview">TextView</string>
+    <string name="background_image_gastracker">background_Image_gasTracker</string>
+    <string name="logo_gas_tracker">Logo_Gas_Tracker</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="welcome">Welcome</string>
+    <string name="your_favorites">Your Favorites</string>
+    <string name="gas_station_address_price">Gas Station\t\t\t\t\t\tAddress\t\t\t\t\t\tPrice</string>
+    <string name="back">Back</string>
+    <string name="map">Map</string>
+    <string name="log_out">Log out</string>
+    <string name="data">Data</string>
 </resources>
