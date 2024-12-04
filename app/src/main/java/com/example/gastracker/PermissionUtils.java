@@ -35,13 +35,12 @@ import java.util.Objects;
 
 
 
-//public abstract class PermissionUtils {
+public abstract class PermissionUtils {
 
     /**
      * Requests the fine and coarse location permissions. If a rationale with an additional
      * explanation should be shown to the user, displays a dialog that triggers the request.
      */
-    /*Todo remove this /*
     public static void requestLocationPermissions(AppCompatActivity activity, int requestId,
                                                   boolean finishActivity) {
         if (ActivityCompat
@@ -58,7 +57,6 @@ import java.util.Objects;
                     requestId);
         }
     }
-Todo remove this */
 
     /**
      * Checks if the result contains a {@link PackageManager#PERMISSION_GRANTED} result for a
@@ -66,7 +64,6 @@ Todo remove this */
      *
      * @see androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
      */
-    /*Todo remove this /*
     public static boolean isPermissionGranted(String[] grantPermissions, int[] grantResults,
                                               String permission) {
         for (int i = 0; i < grantPermissions.length; i++) {
@@ -76,22 +73,19 @@ Todo remove this */
         }
         return false;
     }
-Todo remove this*/
     /**
      * A dialog that displays a permission denied message.
      */
-    /*Todo remove this /*
     public static class PermissionDeniedDialog extends DialogFragment {
 
         private static final String ARGUMENT_FINISH_ACTIVITY = "finish";
 
         private boolean finishActivity = false;
-todo remove this */
         /**
          * Creates a new instance of this dialog and optionally finishes the calling Activity when
          * the 'Ok' button is clicked.
          */
-        /* Todo remove this /*
+
         public static PermissionDeniedDialog newInstance(boolean finishActivity) {
             Bundle arguments = new Bundle();
             arguments.putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity);
@@ -121,7 +115,7 @@ todo remove this */
             }
         }
     }
-Todo remove this */
+
     /**
      * A dialog that explains the use of the location permission and requests the necessary
      * permission.
@@ -129,7 +123,7 @@ Todo remove this */
      * The activity should implement {@link androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback}
      * to handle permit or denial of this permission request.
      */
-    /*todo remove this /*
+
     public static class RationaleDialog extends DialogFragment {
 
         private static final String ARGUMENT_PERMISSION_REQUEST_CODE = "requestCode";
@@ -137,7 +131,7 @@ Todo remove this */
         private static final String ARGUMENT_FINISH_ACTIVITY = "finish";
 
         private boolean finishActivity = false;
-Todo remove this*/
+
         /**
          * Creates a new instance of a dialog displaying the rationale for the use of the location
          * permission.
@@ -150,7 +144,7 @@ Todo remove this*/
          * cancelled.
          */
 
-        /*todo remove this
+
         public static RationaleDialog newInstance(int requestCode, boolean finishActivity) {
             Bundle arguments = new Bundle();
             arguments.putInt(ARGUMENT_PERMISSION_REQUEST_CODE, requestCode);
@@ -159,8 +153,7 @@ Todo remove this*/
             dialog.setArguments(arguments);
             return dialog;
         }
-        */
-/* Todo remove this /*
+
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -199,4 +192,3 @@ Todo remove this*/
         }
     }
 }
-*/

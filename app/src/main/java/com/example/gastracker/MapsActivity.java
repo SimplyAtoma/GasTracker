@@ -9,6 +9,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -19,8 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
-//Todo remove the /*
-/*
+
 public class MapsActivity extends AppCompatActivity implements OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
         OnMapReadyCallback,
@@ -114,10 +115,12 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
      */
-/*Todo remove the /*
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
+
+    static Intent mapIntentFactory(Context context){
+        return new Intent(context, MapsActivity.class);
+    }
 }
-*/

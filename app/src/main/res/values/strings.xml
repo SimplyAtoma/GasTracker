@@ -14,4 +14,7 @@
     <string name="map">Map</string>
     <string name="log_out">Log out</string>
     <string name="data">Data</string>
+    <string name="permission_required_toast">Location is required.</string>
+    <string name="permission_rationale_location">The app will not function properly without Location Services.</string>
+    <string name="location_permission_denied">Location permission was denied.</string>
 </resources>
