@@ -34,7 +34,6 @@ public class AdminActivtity extends AppCompatActivity {
          Intent intent = new Intent(context, AdminActivtity.class);
          intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
          return intent;
-
     }
     private void logout() {
         /*

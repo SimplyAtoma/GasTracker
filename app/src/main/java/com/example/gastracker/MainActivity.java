@@ -53,12 +53,9 @@ public class MainActivity extends AppCompatActivity {
         //check intent for logged in user
         if(loggedInUserId == LOGGED_OUT & savedInstanceStats!= null && savedInstanceStats.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
             loggedInUserId = getIntent().getIntExtra(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
-
         }
         if(loggedInUserId == LOGGED_OUT){
             loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
-        }
-        if(loggedInUserId == LOGGED_OUT){
             return;
         }
         LiveData<User> userObserver = repository.getUserByUserId(loggedInUserId);
@@ -81,15 +78,11 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefEditor.apply();
     }
     private void logout() {
-        /*
         SharedPreferences sharedPreferences =  getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USER_ID_KEY,Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
         sharedPrefEditor.putInt(SHARED_PREFERENCE_USER_ID_KEY,LOGGED_OUT);
         sharedPrefEditor.apply();
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
-
-         */
-        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 //make more commits david
     static Intent mainActivityIntentFactory(Context context, int userId){
