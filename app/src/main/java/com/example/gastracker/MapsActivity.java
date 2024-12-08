@@ -2,6 +2,8 @@ package com.example.gastracker;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
+
+import com.example.gastracker.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
@@ -26,6 +28,9 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final String MAIN_ACTIVITY_USER_ID = "com.example.gastracker.MAIN_ACTIVITY_USER_ID" ;
+    private ActivityMapsBinding binding;
+
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
     private GoogleMap map;
@@ -33,10 +38,10 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 
@@ -49,7 +54,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     }
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
-        // [START maps_check_location_permission]
         // 1. Check if permissions are granted, if so, enable the my location layer
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
@@ -61,7 +65,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
 
         // 2. Otherwise, request location permissions from the user.
         PermissionUtils.requestLocationPermissions(this, LOCATION_PERMISSION_REQUEST_CODE, true);
-        // [END maps_check_location_permission]
     }
 
     @Override
@@ -120,7 +123,9 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
-    static Intent mapIntentFactory(Context context){
-        return new Intent(context, MapsActivity.class);
+    static Intent mapIntentFactory(Context context,int userId){
+        Intent intent = new Intent(context, MapsActivity.class);
+        intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
+        return intent;
     }
 }

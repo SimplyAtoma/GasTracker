@@ -1,5 +1,7 @@
 package com.example.gastracker;
 
+import static com.example.gastracker.MainActivity.SHARED_PREFERENCE_USER_ID_KEY;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +9,12 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gastracker.database.AppDataRepository;
+
 import com.example.gastracker.databinding.ActivityAdminMainBinding;
-import com.example.gastracker.databinding.ActivityLoginBinding;
-import com.example.gastracker.databinding.ActivitySignUpBinding;
+
 
 public class AdminActivtity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.gastracker.MAIN_ACTIVITY_USER_ID" ;
-    private AppDataRepository repository;
     private ActivityAdminMainBinding binding;
 
     @Override
@@ -28,6 +28,13 @@ public class AdminActivtity extends AppCompatActivity {
                 logout();
             }
         });
+        binding.mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID,-1);
+                startActivity(MapsActivity.mapIntentFactory(getApplicationContext(),loggedInUserId));
+            }
+        });
     }
 
     static Intent AdminActivityIntentFactory(Context context, int userId) {
@@ -36,14 +43,6 @@ public class AdminActivtity extends AppCompatActivity {
          return intent;
     }
     private void logout() {
-        /*
-        SharedPreferences sharedPreferences =  getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USER_ID_KEY,Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-        sharedPrefEditor.putInt(SHARED_PREFERENCE_USER_ID_KEY,LOGGED_OUT);
-        sharedPrefEditor.apply();
-        getIntent().putExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
-
-         */
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 

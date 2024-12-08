@@ -26,20 +26,9 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate((getLayoutInflater()));
         setContentView(binding.getRoot());
         repository = AppDataRepository.getRepository(getApplication());
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                verifyUser();
+        binding.loginButton.setOnClickListener(view -> verifyUser());
 
-            }
-        });
-
-        binding.SignUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigateToSignUp();
-            }
-        });
+        binding.SignUpButton.setOnClickListener(view -> navigateToSignUp());
 
 
 
