@@ -4,11 +4,20 @@ import android.Manifest.permission;
 import android.annotation.SuppressLint;
 
 import com.example.gastracker.databinding.ActivityMapsBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.CircularBounds;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.api.net.SearchNearbyRequest;
 
 import android.Manifest;
 import android.content.Context;
@@ -24,25 +33,67 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MapsActivity extends AppCompatActivity implements OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.gastracker.MAIN_ACTIVITY_USER_ID" ;
+    private static final String KEY_CAMERA_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
+
     private ActivityMapsBinding binding;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
     private GoogleMap map;
+    private CameraPosition cameraPosition;
+
+
+    final List<Place.Field> placeFields = Arrays.asList(Place.Field.ID,Place.Field.DISPLAY_NAME,Place.Field.LOCATION, Place.Field.PRICE_LEVEL);
+    final List<String> includeTypes= Arrays.asList("gas_station");
+
+    //entry to Places API
+    private PlacesClient placesClient;
+    //
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location lastKnownLocation;
+
+    // defaults to Latitude and Longitude of the CSUMB campus
+    private final LatLng defaultLocation = new LatLng(36.6533888889,-121.796416667);
+    private static final int DEFAULT_ZOOM = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if( savedInstanceState != null){
+            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
+        Places.initialize(getApplicationContext(),"");
+        placesClient = Places.createClient(this);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        SupportMapFragment mapFragment;
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        searchNear();
+    }
+
+    //saves the location and camera of the map
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        if(map != null){
+            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, lastKnownLocation);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -51,6 +102,8 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         map.setOnMyLocationButtonClickListener(this);
         map.setOnMyLocationClickListener(this);
         enableMyLocation();
+        updateLocationUI();
+        getDeviceLocation();
     }
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
@@ -80,7 +133,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
-    // [START maps_check_location_permission_result]
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -103,7 +155,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
             // [END_EXCLUDE]
         }
     }
-    // [END maps_check_location_permission_result]
 
     @Override
     protected void onResumeFragments() {
@@ -127,5 +178,19 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         Intent intent = new Intent(context, MapsActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
+    }
+
+    private void searchNear(){
+
+        CircularBounds circle = CircularBounds.newInstance(defaultLocation,500);
+        SearchNearbyRequest searchNearbyRequest =
+                SearchNearbyRequest.builder(circle,placeFields)
+                        .setIncludedTypes(includeTypes)
+                        .setMaxResultCount(20)
+                        .build();
+        placesClient.searchNearby(searchNearbyRequest)
+                .addOnSuccessListener(response -> {
+                     = response.getPlaces();
+                });
     }
 }

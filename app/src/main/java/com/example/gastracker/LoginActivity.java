@@ -4,7 +4,6 @@ package com.example.gastracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,9 +45,6 @@ public class LoginActivity extends AppCompatActivity {
             if(user!=null){
                 String password = binding.passwordInput.getText().toString();
                 if(password.equals(user.getPassword())){
-                    if(!user.isAdmin()) {
-                        startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
-                    }
                     Intent intent = AdminActivtity.AdminActivityIntentFactory(getApplicationContext(), user.getId());
                     startActivity(intent);
 

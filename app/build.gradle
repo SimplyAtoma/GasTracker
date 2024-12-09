@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+
 android {
     namespace 'com.example.gastracker'
     compileSdk 34
@@ -44,11 +45,13 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.room.common
+    implementation libs.places
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
     implementation libs.play.services.maps
+    implementation 'com.google.android.libraries.places:places:3.3.0'
 
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"

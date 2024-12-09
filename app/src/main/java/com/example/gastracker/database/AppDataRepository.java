@@ -6,7 +6,10 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.gastracker.MainActivity;
+import com.example.gastracker.database.entities.GasStation;
 import com.example.gastracker.database.entities.User;
+//import com.example.gastracker.database.typeConverter.FavoriteDAO;
+//import com.example.gastracker.database.typeConverter.GasStationDAO;
 import com.example.gastracker.database.typeConverter.UserDAO;
 
 
@@ -16,10 +19,14 @@ import java.util.concurrent.Future;
 
 public class AppDataRepository {
     private final UserDAO userDAO;
+//    private final FavoriteDAO favoriteDAO;
+//    private final GasStationDAO gasStationDAO;
     private static AppDataRepository repository;
     private AppDataRepository(Application application){
         AppDataBase db = AppDataBase.getDatabase(application);
         this.userDAO = db.userDao();
+//        this.gasStationDAO = db.gasStationDAO();
+//        this.favoriteDAO = db.favoriteDAO();
     }
     public static AppDataRepository getRepository(Application application ){
         if(repository != null){
@@ -47,6 +54,7 @@ public class AppDataRepository {
             userDAO.insert(user);
         });
     }
+
 
     public LiveData<User> getUserByUserName(String username) {
         return userDAO.getUserByUserName(username);
