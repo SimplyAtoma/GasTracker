@@ -13,6 +13,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.CircularBounds;
 import com.google.android.libraries.places.api.model.Place;
@@ -192,5 +194,26 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
                 .addOnSuccessListener(response -> {
                      = response.getPlaces();
                 });
+    }
+
+    private void getDeviceLocation(){
+        try{
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED){
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if(task.isSuccessful()){
+                            lastKnownLocation = task.getResult();
+                        }
+                    }
+                })
+            }
+        } catch (SecurityException e){
+            Log.e("Exception: %s", e.getMessage(),e);
+        }
     }
 }
