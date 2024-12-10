@@ -3,7 +3,10 @@ package com.example.gastracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,9 @@ import androidx.lifecycle.LiveData;
 import com.example.gastracker.database.AppDataRepository;
 import com.example.gastracker.database.entities.User;
 import com.example.gastracker.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.gastracker.MAIN_ACTIVITY_USER_ID" ;
@@ -26,11 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     int loggedInUserId = -1;
     private User user;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
     loginUser(savedInstanceState);
         super.onCreate(savedInstanceState);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         if(loggedInUserId == -1){

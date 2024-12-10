@@ -6,10 +6,11 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.gastracker.MainActivity;
+import com.example.gastracker.database.entities.Favorite;
 import com.example.gastracker.database.entities.GasStation;
 import com.example.gastracker.database.entities.User;
-//import com.example.gastracker.database.typeConverter.FavoriteDAO;
-//import com.example.gastracker.database.typeConverter.GasStationDAO;
+import com.example.gastracker.database.typeConverter.FavoriteDAO;
+import com.example.gastracker.database.typeConverter.GasStationDAO;
 import com.example.gastracker.database.typeConverter.UserDAO;
 
 
@@ -19,14 +20,14 @@ import java.util.concurrent.Future;
 
 public class AppDataRepository {
     private final UserDAO userDAO;
-//    private final FavoriteDAO favoriteDAO;
-//    private final GasStationDAO gasStationDAO;
+    private final FavoriteDAO favoriteDAO;
+    private final GasStationDAO gasStationDAO;
     private static AppDataRepository repository;
     private AppDataRepository(Application application){
         AppDataBase db = AppDataBase.getDatabase(application);
         this.userDAO = db.userDao();
-//        this.gasStationDAO = db.gasStationDAO();
-//        this.favoriteDAO = db.favoriteDAO();
+        this.gasStationDAO = db.gasStationDAO();
+        this.favoriteDAO = db.favoriteDAO();
     }
     public static AppDataRepository getRepository(Application application ){
         if(repository != null){
@@ -43,7 +44,7 @@ public class AppDataRepository {
         try{
             return future.get();
         }catch(InterruptedException | ExecutionException e) {
-            Log.d(MainActivity.TAG, "Problem getting GymLogRepository, thread error");
+            Log.d(MainActivity.TAG, "Problem getting AppDataRepository, thread error");
         }
         return null;
     }
@@ -54,7 +55,12 @@ public class AppDataRepository {
             userDAO.insert(user);
         });
     }
-
+    public void insertGasStation(GasStation...gasStation){
+        AppDataBase.databaseWriteExecutor.execute(()->
+        {
+            gasStationDAO.insert(gasStation);
+        });
+    }
 
     public LiveData<User> getUserByUserName(String username) {
         return userDAO.getUserByUserName(username);
@@ -64,4 +70,17 @@ public class AppDataRepository {
     public LiveData<User> getUserByUserId(int userId) {
         return userDAO.getUserByUserId(userId);
     }
+
+    public LiveData<GasStation> getStationByID(int stationID) {
+        return gasStationDAO.getStationByID(stationID);
+    }
+
+    public LiveData<Favorite> getFavoritesById(int userId){
+        return favoriteDAO.getFavorites(userId);
+    }
+    public LiveData<Favorite> getFavoritesByStationId(int stationId){
+        return favoriteDAO.getFavorites(stationId);
+    }
 }
+
+
