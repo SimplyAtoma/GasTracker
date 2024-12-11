@@ -48,6 +48,7 @@ public class AdminActivtity extends AppCompatActivity {
          Intent intent = new Intent(context, AdminActivtity.class);
          intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
          intent.putExtra(ADMIN_ID, isAdmin);
+         //passes the admin boolean
          return intent;
     }
     private void logout() {
