@@ -78,25 +78,15 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
-        Places.initialize(getApplicationContext(),"");
+        Places.initialize(getApplicationContext(),"AIzaSyBqDx1re3SOQ6rAPtI45oLdQHuPWEYgJNo");
         placesClient = Places.createClient(this);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         SupportMapFragment mapFragment;
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        searchNear();
     }
 
-    //saves the location and camera of the map
-    @Override
-    protected void onSaveInstanceState(Bundle outState){
-        if(map != null){
-            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
-            outState.putParcelable(KEY_LOCATION, lastKnownLocation);
-        }
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -104,8 +94,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         map.setOnMyLocationButtonClickListener(this);
         map.setOnMyLocationClickListener(this);
         enableMyLocation();
-        updateLocationUI();
-        getDeviceLocation();
     }
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
@@ -182,38 +170,5 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         return intent;
     }
 
-    private void searchNear(){
 
-        CircularBounds circle = CircularBounds.newInstance(defaultLocation,500);
-        SearchNearbyRequest searchNearbyRequest =
-                SearchNearbyRequest.builder(circle,placeFields)
-                        .setIncludedTypes(includeTypes)
-                        .setMaxResultCount(20)
-                        .build();
-        placesClient.searchNearby(searchNearbyRequest)
-                .addOnSuccessListener(response -> {
-                     = response.getPlaces();
-                });
-    }
-
-    private void getDeviceLocation(){
-        try{
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED){
-                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if(task.isSuccessful()){
-                            lastKnownLocation = task.getResult();
-                        }
-                    }
-                })
-            }
-        } catch (SecurityException e){
-            Log.e("Exception: %s", e.getMessage(),e);
-        }
-    }
 }

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             if(user!=null){
                 String password = binding.passwordInput.getText().toString();
                 if(password.equals(user.getPassword())){
-                    Intent intent = AdminActivtity.AdminActivityIntentFactory(getApplicationContext(), user.getId());
+                    Intent intent = AdminActivtity.AdminActivityIntentFactory(getApplicationContext(), user.getId(),user.isAdmin());
                     startActivity(intent);
 
                 }else{

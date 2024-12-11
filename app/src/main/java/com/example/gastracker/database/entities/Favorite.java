@@ -10,9 +10,19 @@ import java.util.Objects;
 @Entity(tableName = AppDataBase.USER_FAVORITES)
 public class Favorite {
     @PrimaryKey(autoGenerate = true)
+    private int uniqueId;
+
     private int userId;
 
     private int stationId;
+
+    public int getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(int uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 
     public int getUserId() {
         return userId;
@@ -27,6 +37,11 @@ public class Favorite {
     }
 
     public void setStationId(int stationId) {
+        this.stationId = stationId;
+    }
+
+    public Favorite(int userId, int stationId) {
+        this.userId = userId;
         this.stationId = stationId;
     }
 

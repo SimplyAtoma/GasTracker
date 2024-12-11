@@ -18,8 +18,7 @@ public class GasStation {
 
     private String stationPrice;
 
-    public GasStation(int stationID, String stationName, String stationAddress, String stationPrice) {
-        this.stationID = stationID;
+    public GasStation( String stationName, String stationAddress, String stationPrice) {
         this.stationName = stationName;
         this.stationAddress = stationAddress;
         this.stationPrice = stationPrice;

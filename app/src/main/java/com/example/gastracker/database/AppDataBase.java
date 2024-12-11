@@ -17,7 +17,7 @@ import com.example.gastracker.database.typeConverter.UserDAO;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, GasStation.class, Favorite.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Favorite.class, GasStation.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
     public static final String USER_TABLE = "usertable";
     public static final String USER_FAVORITES = "favoritesTable";
@@ -58,18 +58,25 @@ public abstract class AppDataBase extends RoomDatabase {
                 dao.insert(admin);
                 User testUser1 = new User("testuser1", "testuser1");
                 dao.insert(testUser1);
-            });
-           databaseWriteExecutor.execute(() -> {
-               GasStationDAO dao = INSTANCE.gasStationDAO();
-                GasStation shell = new GasStation(1,"shell","123 default st","high");
-               dao.insert(shell);
+                GasStation shell = new GasStation("shell","123 default st","high");
+                GasStationDAO gasdao = INSTANCE.gasStationDAO();
+                gasdao.insert(shell);
+                GasStation arco = new GasStation("arco","321 default st","mid");
+                gasdao.insert(arco);
+                GasStation fast = new GasStation("fast strip","13 default st","low");
+                gasdao.insert(fast);
+                GasStation safeway = new GasStation("safeway","1 default st","high");
+                gasdao.insert(safeway);
+                Favorite adminFavs = new Favorite(2,1);
+                FavoriteDAO favDAO = INSTANCE.favoriteDAO();
+                favDAO.insert(adminFavs);
             });
 
         }
     };
     public abstract UserDAO userDao();
     public abstract GasStationDAO gasStationDAO();
-    public abstract FavoriteDAO favoriteDAO();
+   public abstract FavoriteDAO favoriteDAO();
 
 
 

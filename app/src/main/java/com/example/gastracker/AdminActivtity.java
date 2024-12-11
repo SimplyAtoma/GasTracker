@@ -15,13 +15,19 @@ import com.example.gastracker.databinding.ActivityAdminMainBinding;
 
 public class AdminActivtity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.gastracker.MAIN_ACTIVITY_USER_ID" ;
+    private static final String ADMIN_ID = "isAdmin" ;
     private ActivityAdminMainBinding binding;
+    private boolean admin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        admin = getIntent().getBooleanExtra(ADMIN_ID,false);
+        if (!admin) {
+            binding.adminData.setVisibility(View.INVISIBLE);
+        }
         binding.logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,9 +43,10 @@ public class AdminActivtity extends AppCompatActivity {
         });
     }
 
-    static Intent AdminActivityIntentFactory(Context context, int userId) {
+    static Intent AdminActivityIntentFactory(Context context, int userId, boolean isAdmin) {
          Intent intent = new Intent(context, AdminActivtity.class);
          intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
+         intent.putExtra(ADMIN_ID, isAdmin);
          return intent;
     }
     private void logout() {

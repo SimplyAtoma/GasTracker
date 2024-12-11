@@ -20,11 +20,11 @@ import java.util.List;
     @Delete
     void delete(Favorite favorite);
 
-   @Query(" SELECT * FROM " + AppDataBase.USER_FAVORITES + " WHERE userId == userId ")
+   @Query(" SELECT * FROM " + AppDataBase.USER_FAVORITES + " WHERE userId == :userId ")
      LiveData<Favorite> getFavorites(int userId);
 
-  @Query(" SELECT * FROM " + AppDataBase.USER_FAVORITES + " WHERE stationId == stationId ")
-  LiveData<Favorite> getUserFavorites(int stationID);
+//  @Query(" SELECT * FROM " + AppDataBase.USER_FAVORITES + " WHERE stationId == :stationId ")
+//  LiveData<Favorite> getUserFavorites(int stationID);
 
 
 
