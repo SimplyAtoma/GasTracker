@@ -68,6 +68,7 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     // defaults to Latitude and Longitude of the CSUMB campus
     private final LatLng defaultLocation = new LatLng(36.6533888889,-121.796416667);
     private static final int DEFAULT_ZOOM = 15;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,7 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         SupportMapFragment mapFragment;
+        //instantiates the map fragment support
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
