@@ -25,6 +25,7 @@ public class AdminActivtity extends AppCompatActivity {
         binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         admin = getIntent().getBooleanExtra(ADMIN_ID,false);
+        //sets the visiblity of the data button
         if (!admin) {
             binding.adminData.setVisibility(View.INVISIBLE);
         }
