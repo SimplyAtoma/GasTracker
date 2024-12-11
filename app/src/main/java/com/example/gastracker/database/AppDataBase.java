@@ -49,6 +49,8 @@ public abstract class AppDataBase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            //this creates the default values stored in the database for User
+            // Gas Station and Favorites
             Log.i(MainActivity.TAG,"DATABASE CREATED!");
             databaseWriteExecutor.execute(() -> {
                 UserDAO dao = INSTANCE.userDao();

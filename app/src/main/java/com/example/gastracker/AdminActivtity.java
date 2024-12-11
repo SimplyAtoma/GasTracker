@@ -25,6 +25,7 @@ public class AdminActivtity extends AppCompatActivity {
         binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         admin = getIntent().getBooleanExtra(ADMIN_ID,false);
+        //sets the visiblity of the data button
         if (!admin) {
             binding.adminData.setVisibility(View.INVISIBLE);
         }
@@ -47,6 +48,7 @@ public class AdminActivtity extends AppCompatActivity {
          Intent intent = new Intent(context, AdminActivtity.class);
          intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
          intent.putExtra(ADMIN_ID, isAdmin);
+         //passes the admin boolean
          return intent;
     }
     private void logout() {

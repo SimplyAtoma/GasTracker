@@ -61,28 +61,32 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
 
     //entry to Places API
     private PlacesClient placesClient;
-    //
+    //This w
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Location lastKnownLocation;
 
     // defaults to Latitude and Longitude of the CSUMB campus
     private final LatLng defaultLocation = new LatLng(36.6533888889,-121.796416667);
     private static final int DEFAULT_ZOOM = 15;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         if( savedInstanceState != null){
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
+
         Places.initialize(getApplicationContext(),"AIzaSyBqDx1re3SOQ6rAPtI45oLdQHuPWEYgJNo");
         placesClient = Places.createClient(this);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         SupportMapFragment mapFragment;
+        //instantiates the map fragment support
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -97,7 +101,8 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     }
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
-        // 1. Check if permissions are granted, if so, enable the my location layer
+        // this checks to see if permission for location are already granted.
+        //if it is it enables the location layer
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, permission.ACCESS_COARSE_LOCATION)
@@ -135,14 +140,12 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
                 Manifest.permission.ACCESS_FINE_LOCATION) || PermissionUtils
                 .isPermissionGranted(permissions, grantResults,
                         Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            // Enable the my location layer if the permission has been granted.
+            // Enable the location layer if the permission has been granted.
             enableMyLocation();
         } else {
             // Permission was denied. Display an error message
-            // [START_EXCLUDE]
             // Display the missing permission error dialog when the fragments resume.
             permissionDenied = true;
-            // [END_EXCLUDE]
         }
     }
 
@@ -164,6 +167,12 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
+    /**
+     * Intent factory to start the map activity, uses user Id to avoid from crashing.
+     * @param context
+     * @param userId
+     * @return
+     */
     static Intent mapIntentFactory(Context context,int userId){
         Intent intent = new Intent(context, MapsActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
