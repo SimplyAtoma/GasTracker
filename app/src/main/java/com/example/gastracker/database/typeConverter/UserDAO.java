@@ -31,4 +31,6 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE + " WHERE id == :userId")
     LiveData<User> getUserByUserId(int userId);
+
+
 }

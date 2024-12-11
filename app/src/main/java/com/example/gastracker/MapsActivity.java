@@ -2,13 +2,28 @@ package com.example.gastracker;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
+
+import com.example.gastracker.databinding.ActivityMapsBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.CircularBounds;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.api.net.SearchNearbyRequest;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -19,25 +34,59 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
-//Todo remove the /*
-/*
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MapsActivity extends AppCompatActivity implements OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final String MAIN_ACTIVITY_USER_ID = "com.example.gastracker.MAIN_ACTIVITY_USER_ID" ;
+    private static final String KEY_CAMERA_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
+
+    private ActivityMapsBinding binding;
+
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
     private GoogleMap map;
+    private CameraPosition cameraPosition;
+
+
+    final List<Place.Field> placeFields = Arrays.asList(Place.Field.ID,Place.Field.DISPLAY_NAME,Place.Field.LOCATION, Place.Field.PRICE_LEVEL);
+    final List<String> includeTypes= Arrays.asList("gas_station");
+
+    //entry to Places API
+    private PlacesClient placesClient;
+    //
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location lastKnownLocation;
+
+    // defaults to Latitude and Longitude of the CSUMB campus
+    private final LatLng defaultLocation = new LatLng(36.6533888889,-121.796416667);
+    private static final int DEFAULT_ZOOM = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        assert mapFragment != null;
+        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        if( savedInstanceState != null){
+            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
+        Places.initialize(getApplicationContext(),"AIzaSyBqDx1re3SOQ6rAPtI45oLdQHuPWEYgJNo");
+        placesClient = Places.createClient(this);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        SupportMapFragment mapFragment;
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -48,7 +97,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     }
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
-        // [START maps_check_location_permission]
         // 1. Check if permissions are granted, if so, enable the my location layer
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
@@ -60,7 +108,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
 
         // 2. Otherwise, request location permissions from the user.
         PermissionUtils.requestLocationPermissions(this, LOCATION_PERMISSION_REQUEST_CODE, true);
-        // [END maps_check_location_permission]
     }
 
     @Override
@@ -76,7 +123,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
-    // [START maps_check_location_permission_result]
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -99,7 +145,6 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
             // [END_EXCLUDE]
         }
     }
-    // [END maps_check_location_permission_result]
 
     @Override
     protected void onResumeFragments() {
@@ -114,10 +159,16 @@ public class MapsActivity extends AppCompatActivity implements OnMyLocationButto
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
      */
-/*Todo remove the /*
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
+
+    static Intent mapIntentFactory(Context context,int userId){
+        Intent intent = new Intent(context, MapsActivity.class);
+        intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
+        return intent;
+    }
+
+
 }
-*/

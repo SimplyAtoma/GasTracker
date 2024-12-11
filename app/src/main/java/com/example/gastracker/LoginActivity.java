@@ -4,7 +4,6 @@ package com.example.gastracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,20 +25,9 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate((getLayoutInflater()));
         setContentView(binding.getRoot());
         repository = AppDataRepository.getRepository(getApplication());
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                verifyUser();
+        binding.loginButton.setOnClickListener(view -> verifyUser());
 
-            }
-        });
-
-        binding.SignUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigateToSignUp();
-            }
-        });
+        binding.SignUpButton.setOnClickListener(view -> navigateToSignUp());
 
 
 
@@ -57,10 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             if(user!=null){
                 String password = binding.passwordInput.getText().toString();
                 if(password.equals(user.getPassword())){
-                    if(!user.isAdmin()) {
-                        startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
-                    }
-                    Intent intent = AdminActivtity.AdminActivityIntentFactory(getApplicationContext(), user.getId());
+                    Intent intent = AdminActivtity.AdminActivityIntentFactory(getApplicationContext(), user.getId(),user.isAdmin());
                     startActivity(intent);
 
                 }else{
